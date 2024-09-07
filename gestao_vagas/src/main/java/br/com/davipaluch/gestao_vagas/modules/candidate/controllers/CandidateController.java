@@ -6,22 +6,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.davipaluch.gestao_vagas.modules.candidate.CandidateEntity;
+import br.com.davipaluch.gestao_vagas.modules.candidate.CandidateRepository;
 import jakarta.validation.Valid;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 @RequestMapping("/candidate")
 public class CandidateController {
 
-  @GetMapping()
-  public String getMethodName() {
-    return "Hello ";
-  }
+  // Autowired significa que o Spring será responsável pela instanciação do objeto
+  @Autowired
+  private CandidateRepository candidateRepository;
 
   @PostMapping()
-  public void create(@Valid @RequestBody CandidateEntity candidateEntity) {
+  public CandidateEntity create(@Valid @RequestBody CandidateEntity candidateEntity) {
     System.out.println("Criando novo candidato");
-    System.out.println(candidateEntity.getEmail());
+
+    return this.candidateRepository.save(candidateEntity);
   }
 }

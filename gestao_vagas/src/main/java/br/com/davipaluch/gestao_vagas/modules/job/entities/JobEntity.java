@@ -1,4 +1,4 @@
-package br.com.davipaluch.gestao_vagas.modules.company.entities;
+package br.com.davipaluch.gestao_vagas.modules.job.entities;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import br.com.davipaluch.gestao_vagas.modules.company.entities.CompanyEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,8 +28,10 @@ public class JobEntity {
   private String salary;
 
   @ManyToOne()
-  @JoinColumn(name = "company_id")
+  @JoinColumn(name = "company_id", insertable = false, updatable = false)
   private CompanyEntity companyEntity;
+  @Column(name = "company_id")
+  private UUID companyId;
 
   @CreationTimestamp
   private LocalDateTime createdAt;
